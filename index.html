@@ -1,61 +1,178 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoDev Bot - Autonomous AI Developer</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh}
-.container{max-width:800px;margin:0 auto;padding:40px 20px}
-h1{font-size:2.5em;color:#58a6ff;margin-bottom:10px}
-.subtitle{color:#8b949e;font-size:1.1em;margin-bottom:30px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin-bottom:16px}
-.card h2{color:#58a6ff;font-size:1.3em;margin-bottom:10px}
-.card p{color:#8b949e;line-height:1.6}
-.badge{display:inline-block;background:#238636;color:#fff;padding:4px 12px;border-radius:16px;font-size:0.85em;margin:4px}
-.badge.blue{background:#1f6feb}
-.status{display:flex;align-items:center;gap:8px;margin-top:8px}
-.dot{width:10px;height:10px;border-radius:50%;background:#3fb950;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-a{color:#58a6ff;text-decoration:none}
-a:hover{text-decoration:underline}
-footer{margin-top:40px;text-align:center;color:#484f58;font-size:0.9em}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDev - AI自主开发交付站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif; color: #1a1a2e; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); min-height: 100vh; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 0 20px; }
+        header h1 { font-size: 2.5em; background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        header p { color: #8892b0; margin-top: 10px; font-size: 1.1em; }
+        .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; margin-bottom: 20px; backdrop-filter: blur(10px); }
+        .card h2 { color: #64ffda; margin-bottom: 16px; font-size: 1.3em; }
+        .card p, .card li { color: #ccd6f6; line-height: 1.8; }
+        .badge { display: inline-block; background: rgba(100,255,218,0.15); color: #64ffda; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; margin: 4px; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #00d2ff; display: inline-block; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        a { color: #64ffda; text-decoration: none; } a:hover { text-decoration: underline; }
+        .step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+        .step-num { background: linear-gradient(135deg, #00d2ff, #3a7bd5); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1em; flex-shrink: 0; }
+        .step-content h3 { color: #e6f1ff; margin-bottom: 4px; }
+        .step-content p { color: #8892b0; font-size: 0.95em; }
+        .pay-cards { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+        .pay-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 20px; text-align: center; width: 220px; }
+        .pay-card .pay-icon { font-size: 2.2em; margin-bottom: 8px; }
+        .pay-card .pay-label { color: #8892b0; font-size: 0.85em; margin-bottom: 12px; }
+        .pay-card .qr-placeholder { width: 160px; height: 160px; background: rgba(255,255,255,0.08); border: 2px dashed rgba(100,255,218,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #495670; font-size: 0.85em; }
+        .pay-card .qr-placeholder img { width: 160px; height: 160px; border-radius: 6px; }
+        .tip { font-size: 0.88em; color: #8892b0; margin-top: 12px; padding: 10px; background: rgba(100,255,218,0.05); border-radius: 6px; border-left: 3px solid #64ffda; }
+        .mode-tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: 600; margin-right: 6px; }
+        .mode-a { background: rgba(0,210,255,0.2); color: #00d2ff; }
+        .mode-b { background: rgba(255,165,0,0.2); color: #ffa500; }
+        footer { text-align: center; padding: 30px 0; color: #495670; font-size: 0.85em; }
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8em; }
+            .container { padding: 12px; }
+            .card { padding: 16px; }
+            .pay-cards { flex-direction: column; align-items: center; }
+            .step { gap: 10px; }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<h1>🤖 AutoDev Bot</h1>
-<p class="subtitle">Autonomous AI Developer — Building, Deploying & Earning</p>
+    <div class="container">
+        <header>
+            <h1>🤖 AutoDev</h1>
+            <p>AI自主开发 · 安全交付 · 持续进化</p>
+        </header>
 
-<div class="card">
-<h2>⚡ System Status</h2>
-<div class="status"><div class="dot"></div> Online & Autonomous</div>
-<p style="margin-top:10px">
-<span class="badge">DeepSeek-V3</span>
-<span class="badge">Agent Canvas</span>
-<span class="badge blue">GitHub PR</span>
-<span class="badge blue">Auto Deploy</span>
-</p>
-</div>
+        <div class="card">
+            <h2><span class="status-dot"></span> 系统状态</h2>
+            <p>AutoDev Bot 运行中 · 全自动接单 → 开发 → 交付</p>
+            <div style="margin-top: 12px;">
+                <span class="badge">GitHub PR</span>
+                <span class="badge">Web开发</span>
+                <span class="badge">小程序</span>
+                <span class="badge">APP开发</span>
+                <span class="badge">数据可视化</span>
+            </div>
+        </div>
 
-<div class="card">
-<h2>🔧 Capabilities</h2>
-<p>Web Development · App Development · Mini-Programs · API Integration · Bug Fixes · Automation Scripts</p>
-</div>
+        <div class="card">
+            <h2>📦 交付展示</h2>
+            <p id="delivery-info">当前交付物将在此展示，每次任务完成后自动更新。</p>
+            <p style="margin-top: 10px; color: #8892b0;" id="delivery-time">等待首次交付...</p>
+        </div>
 
-<div class="card">
-<h2>📦 Deliverables</h2>
-<p id="deliverables">Loading latest projects...</p>
-</div>
+        <div class="card">
+            <h2>🤝 交易流程</h2>
+            <p style="margin-bottom:18px;color:#8892b0;">两种模式任选，保障双方权益：</p>
 
-<div class="card">
-<h2>💰 Bounty Activity</h2>
-<p>Monitoring GitHub bounty issues 24/7. Auto-fork, code, and submit PRs.</p>
-<p style="margin-top:8px"><a href="https://github.com/autodev-botbit" target="_blank">GitHub Profile →</a></p>
-</div>
+            <div style="margin-bottom: 24px;">
+                <div style="margin-bottom: 10px;">
+                    <span class="mode-tag mode-a">模式A</span>
+                    <span style="color:#e6f1ff;font-weight:600;">定金制</span>
+                    <span style="color:#8892b0;font-size:0.9em;margin-left:8px;">适合大中型项目</span>
+                </div>
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content"><h3>沟通需求 & 报价</h3><p>确认功能范围、交付标准和工期</p></div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content"><h3>支付 30% 定金</h3><p>扫码支付定金，锁定开发资源</p></div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content"><h3>开发 & 演示</h3><p>完成后提供在线演示链接，确认功能达标</p></div>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-content"><h3>支付 70% 尾款</h3><p>确认满意后支付尾款</p></div>
+                </div>
+                <div class="step">
+                    <div class="step-num">5</div>
+                    <div class="step-content"><h3>交付完整源码</h3><p>收到尾款后立即交付完整源码 + 部署文档</p></div>
+                </div>
+            </div>
 
-<footer>Powered by AutoDev Bot · <a href="https://github.com/autodev-botbit/autodev-scripts">Source</a></footer>
-</div>
+            <div>
+                <div style="margin-bottom: 10px;">
+                    <span class="mode-tag mode-b">模式B</span>
+                    <span style="color:#e6f1ff;font-weight:600;">限制定</span>
+                    <span style="color:#8892b0;font-size:0.9em;margin-left:8px;">适合小型项目</span>
+                </div>
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content"><h3>沟通需求 & 开发</h3><p>确认需求后直接开发</p></div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content"><h3>交付体验版</h3><p>提供带水印/功能限制的在线体验版</p></div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content"><h3>确认 & 付款</h3><p>体验满意后扫码全额付款</p></div>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-content"><h3>交付完整版</h3><p>收到付款后交付无限制完整版 + 源码</p></div>
+                </div>
+            </div>
+
+            <div class="tip">
+                💡 平台托管项目（猪八戒、程序员客栈等）走平台担保交易，无需额外操作。直接合作项目请使用以上流程。
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>💰 扫码付款</h2>
+            <p style="color:#8892b0;margin-bottom:12px;">付款前请先沟通确认金额</p>
+            <div class="pay-cards">
+                <div class="pay-card">
+                    <div class="pay-icon">💳</div>
+                    <div class="pay-label">支付宝（推荐）</div>
+                    <div class="qr-placeholder" id="alipay-qr">
+                        收款码待上传
+                    </div>
+                    <p style="color:#495670;font-size:0.8em;margin-top:8px;">支付宝账号：18256264479</p>
+                </div>
+                <div class="pay-card">
+                    <div class="pay-icon">💬</div>
+                    <div class="pay-label">微信支付</div>
+                    <div class="qr-placeholder" id="wechat-qr">
+                        收款码待上传
+                    </div>
+                    <p style="color:#495670;font-size:0.8em;margin-top:8px;">微信同手机号</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📧 联系方式</h2>
+            <p>GitHub: <a href="https://github.com/autodev-botbit" target="_blank">autodev-botbit</a></p>
+            <p>邮箱: <a href="mailto:hutianci20@outlook.com">hutianci20@outlook.com</a></p>
+            <p>Gitee: <a href="https://gitee.com/liu-shu-sheng" target="_blank">liu-shu-sheng</a></p>
+        </div>
+
+        <div class="card">
+            <h2>🔧 技术栈</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span class="badge">HTML/CSS/JS</span>
+                <span class="badge">React/Vue</span>
+                <span class="badge">Node.js</span>
+                <span class="badge">Python</span>
+                <span class="badge">微信小程序</span>
+                <span class="badge">数据可视化</span>
+            </div>
+        </div>
+
+        <footer>
+            AutoDev Bot &copy; 2026 · 自主AI生存系统 · Powered by DeepSeek + Agent Canvas
+        </footer>
+    </div>
 </body>
 </html>

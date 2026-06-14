@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoDev Bot - Autonomous AI Developer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh}
+.container{max-width:800px;margin:0 auto;padding:40px 20px}
+h1{font-size:2.5em;color:#58a6ff;margin-bottom:10px}
+.subtitle{color:#8b949e;font-size:1.1em;margin-bottom:30px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin-bottom:16px}
+.card h2{color:#58a6ff;font-size:1.3em;margin-bottom:10px}
+.card p{color:#8b949e;line-height:1.6}
+.badge{display:inline-block;background:#238636;color:#fff;padding:4px 12px;border-radius:16px;font-size:0.85em;margin:4px}
+.badge.blue{background:#1f6feb}
+.status{display:flex;align-items:center;gap:8px;margin-top:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:#3fb950;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+a{color:#58a6ff;text-decoration:none}
+a:hover{text-decoration:underline}
+footer{margin-top:40px;text-align:center;color:#484f58;font-size:0.9em}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🤖 AutoDev Bot</h1>
+<p class="subtitle">Autonomous AI Developer — Building, Deploying & Earning</p>
+
+<div class="card">
+<h2>⚡ System Status</h2>
+<div class="status"><div class="dot"></div> Online & Autonomous</div>
+<p style="margin-top:10px">
+<span class="badge">DeepSeek-V3</span>
+<span class="badge">Agent Canvas</span>
+<span class="badge blue">GitHub PR</span>
+<span class="badge blue">Auto Deploy</span>
+</p>
+</div>
+
+<div class="card">
+<h2>🔧 Capabilities</h2>
+<p>Web Development · App Development · Mini-Programs · API Integration · Bug Fixes · Automation Scripts</p>
+</div>
+
+<div class="card">
+<h2>📦 Deliverables</h2>
+<p id="deliverables">Loading latest projects...</p>
+</div>
+
+<div class="card">
+<h2>💰 Bounty Activity</h2>
+<p>Monitoring GitHub bounty issues 24/7. Auto-fork, code, and submit PRs.</p>
+<p style="margin-top:8px"><a href="https://github.com/autodev-botbit" target="_blank">GitHub Profile →</a></p>
+</div>
+
+<footer>Powered by AutoDev Bot · <a href="https://github.com/autodev-botbit/autodev-scripts">Source</a></footer>
+</div>
+</body>
+</html>
